@@ -5,13 +5,14 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Post;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Post controller.
  *
- * @Route("post")
+ * @Route("posts")
  * @Security("has_role('ROLE_USER')")
  */
 class PostController extends Controller
@@ -24,9 +25,11 @@ class PostController extends Controller
      */
     public function indexAction()
     {
+        $user_id = $this->getUser()->getId();
+
         $em = $this->getDoctrine()->getManager();
 
-        $posts = $em->getRepository('AppBundle:Post')->findAll();
+        $posts = $em->getRepository('AppBundle:Post')->findBy(array('author' => $user_id));
 
         return $this->render('post/index.html.twig', array(
             'posts' => $posts,
