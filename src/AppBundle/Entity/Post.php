@@ -100,4 +100,28 @@ class Post
     {
         return $this->body;
     }
+
+    /**
+     * Set author
+     *
+     * @param \AppBundle\Entity\User $author
+     *
+     * @return Post
+     */
+    public function setAuthor(\AppBundle\Entity\User $author = null)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
 }

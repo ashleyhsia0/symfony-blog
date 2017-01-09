@@ -36,4 +36,38 @@ class User extends BaseUser
 
         $this->posts = new ArrayCollection();
     }
+
+    /**
+     * Add post
+     *
+     * @param \AppBundle\Entity\Post $post
+     *
+     * @return User
+     */
+    public function addPost(\AppBundle\Entity\Post $post)
+    {
+        $this->posts[] = $post;
+
+        return $this;
+    }
+
+    /**
+     * Remove post
+     *
+     * @param \AppBundle\Entity\Post $post
+     */
+    public function removePost(\AppBundle\Entity\Post $post)
+    {
+        $this->posts->removeElement($post);
+    }
+
+    /**
+     * Get posts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPosts()
+    {
+        return $this->posts;
+    }
 }
