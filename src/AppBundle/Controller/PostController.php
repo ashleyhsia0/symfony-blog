@@ -7,13 +7,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Security\Core\User\UserInterface;
+
 
 /**
  * Post controller.
  *
  * @Route("posts")
- * @Security("has_role('ROLE_USER')")
  */
 class PostController extends Controller
 {
@@ -23,8 +23,14 @@ class PostController extends Controller
      * @Route("/", name="post_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(UserInterface $user = null)
     {
+        // $user is null when not logged-in or anon.
+        // Use this to see if the user is logged in
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createAccessDeniedException();
+        }
+
         $user_id = $this->getUser()->getId();
 
         $em = $this->getDoctrine()->getManager();
@@ -86,6 +92,9 @@ class PostController extends Controller
      */
     public function editAction(Request $request, Post $post)
     {
+        // check for "edit" access: calls all voters
+        $this->denyAccessUnlessGranted('edit', $post);
+
         $deleteForm = $this->createDeleteForm($post);
         $editForm = $this->createForm('AppBundle\Form\PostType', $post);
         $editForm->handleRequest($request);
@@ -111,6 +120,9 @@ class PostController extends Controller
      */
     public function deleteAction(Request $request, Post $post)
     {
+        // check for "edit" access: calls all voters
+        $this->denyAccessUnlessGranted('edit', $post);
+        
         $form = $this->createDeleteForm($post);
         $form->handleRequest($request);
 
