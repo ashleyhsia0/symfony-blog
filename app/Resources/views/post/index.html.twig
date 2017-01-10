@@ -5,6 +5,7 @@
         <h1>Posts</h1>
 
         <a class="btn btn-success" href="{{ path('post_new') }}">New Post</a>
+        <a class="btn btn-default" href="{{ path('user_blog_index', { 'username': app.user.username}) }}">View Blog</a>
 
         <table class="table">
             <thead>
