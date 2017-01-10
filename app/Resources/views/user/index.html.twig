@@ -7,7 +7,7 @@
         {% for post in posts %}
             <h2><a href="{{ path('post_show', { 'slug': post.slug }) }}">{{ post.title }}</a></h2>
             <div class="post-content">
-                {{ post.body }}
+                {{ post.body|length > 1500 ? post.body|slice(0, 1500) ~ '...' : post.body }}
             </div>
         {% endfor %}
     </div>

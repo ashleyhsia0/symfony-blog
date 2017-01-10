@@ -19,7 +19,7 @@
             {% for post in posts %}
                 <tr>
                     <td>{{ post.title }}</td>
-                    <td>{{ post.body }}</td>
+                    <td>{{ post.body|length > 50 ? post.body|slice(0, 50) ~ '...' : post.body }}</td>
                     <td>
                         <a class="btn btn-default btn-sm" href="{{ path('post_show', { 'slug': post.slug }) }}">view</a>
                         <a class="btn btn-default btn-sm" href="{{ path('post_edit', { 'id': post.id }) }}">edit</a>
