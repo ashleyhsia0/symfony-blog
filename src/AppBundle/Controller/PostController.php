@@ -55,6 +55,7 @@ class PostController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $post->setAuthor($this->getUser());
             $em = $this->getDoctrine()->getManager();
             $em->persist($post);
             $em->flush($post);
@@ -122,7 +123,7 @@ class PostController extends Controller
     {
         // check for "edit" access: calls all voters
         $this->denyAccessUnlessGranted('edit', $post);
-        
+
         $form = $this->createDeleteForm($post);
         $form->handleRequest($request);
 

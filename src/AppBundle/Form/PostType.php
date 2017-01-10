@@ -22,10 +22,10 @@ class PostType extends AbstractType
                 ->add('body', TextareaType::class, array(
                     'required' => true
                 ))
-                ->add('author', EntityType::class, array(
-                    'required' => true,
-                    'class' => 'AppBundle:User'
-                ))
+                // ->add('author', EntityType::class, array(
+                //     'required' => true,
+                //     'class' => 'AppBundle:User'
+                // ))
         ;
     }
 
