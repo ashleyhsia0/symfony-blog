@@ -1,0 +1,24 @@
+.post-content {
+  min-height: 300px;
+  background-color: #eee;
+  padding: 1%;
+  margin-bottom: 2%;
+}
+
+#post-options {
+  /*text-align: right;*/
+}
+
+#edit-post {
+  position: relative;
+}
+
+#appbundle_post_body {
+  margin-bottom: 2%;
+}
+
+#edit-post>form[name=form] {
+  position: absolute;
+  bottom: 20px;
+  left: 77px;
+}

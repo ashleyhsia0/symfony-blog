@@ -1,30 +1,31 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Posts</h1>
+    <div class="container">
+        <h1>Posts</h1>
 
-    <a class="btn btn-success" href="{{ path('post_new') }}">New Post</a>
+        <a class="btn btn-success" href="{{ path('post_new') }}">New Post</a>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Body</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for post in posts %}
-            <tr>
-                <td>{{ post.title }}</td>
-                <td>{{ post.body }}</td>
-                <td>
-                    <a class="btn btn-default btn-sm" href="{{ path('post_show', { 'slug': post.slug }) }}">view</a>
-                    <a class="btn btn-default btn-sm" href="{{ path('post_edit', { 'id': post.id }) }}">edit</a>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Body</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for post in posts %}
+                <tr>
+                    <td>{{ post.title }}</td>
+                    <td>{{ post.body }}</td>
+                    <td>
+                        <a class="btn btn-default btn-sm" href="{{ path('post_show', { 'slug': post.slug }) }}">view</a>
+                        <a class="btn btn-default btn-sm" href="{{ path('post_edit', { 'id': post.id }) }}">edit</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

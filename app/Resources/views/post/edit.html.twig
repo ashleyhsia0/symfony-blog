@@ -1,21 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Post edit</h1>
+    <div class="container" id="edit-post">
+        <h1>Edit Post</h1>
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
+        {{ form_start(edit_form) }}
+            {{ form_row(edit_form.title, { 'attr': {'class': 'form-control'} }) }}
+            {{ form_row(edit_form.body, { 'attr': {'class': 'form-control', 'rows': '10'} }) }}
+            <input id="save-post-btn" type="submit" class="btn btn-success" value="Save" />
+        {{ form_end(edit_form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('post_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+
+        {{ form_start(delete_form) }}
+            <input class="btn btn-danger" type="submit" value="Delete">
+        {{ form_end(delete_form) }}
+
+        <a href="{{ path('post_index') }}">Back to the list</a>
+    </div>
 {% endblock %}

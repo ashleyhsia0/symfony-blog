@@ -1,21 +1,25 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>{{ post.title }} <small>{{ post.author.username }}</small></h1>
+    <div class="container">
+        <h1>{{ post.title }} <small>{{ post.author.username }}</small></h1>
 
-    <div>
-    {{ post.body }}
+        <div class="post-content">
+            {{ post.body }}
+        </div>
+
+        {% if is_granted('edit', post) or is_granted('ROLE_ADMIN') %}
+            <div id="post-options">
+                <a class="btn btn-default" href="{{ path('post_edit', { 'id': post.id }) }}">Edit</a>
+
+                {{ form_start(delete_form, { 'attr': { 'style': 'display: inline-block'} }) }}
+                    <input class="btn btn-danger" type="submit" value="Delete">
+                {{ form_end(delete_form) }}
+
+                <p>
+                    <a href="{{ path('post_index') }}">Back to the list</a>
+                </p>
+            </div>
+        {% endif %}
     </div>
-
-    {% if is_granted('edit', post) or is_granted('ROLE_ADMIN') %}
-    <div>
-        <a class="btn btn-default" href="{{ path('post_edit', { 'id': post.id }) }}">Edit</a>
-
-        {{ form_start(delete_form, { 'attr': { 'style': 'display: inline-block'} }) }}
-            <input class="btn btn-danger" type="submit" value="Delete">
-        {{ form_end(delete_form) }}
-    </div>
-
-    <a href="{{ path('post_index') }}">Back to the list</a>
-    {% endif %}
 {% endblock %}
