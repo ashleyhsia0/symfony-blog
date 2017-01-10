@@ -20,6 +20,7 @@
         </tbody>
     </table>
 
+    {% if is_granted('edit', post) or is_granted('ROLE_ADMIN') %}
     <ul>
         <li>
             <a href="{{ path('post_index') }}">Back to the list</a>
@@ -33,4 +34,5 @@
             {{ form_end(delete_form) }}
         </li>
     </ul>
+    {% endif %}
 {% endblock %}
