@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="posts")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PostRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Post
 {
@@ -123,5 +124,20 @@ class Post
     public function getAuthor()
     {
         return $this->author;
+    }
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="slug", type="string", unique=true)
+     */
+
+    private $slug;
+
+    /**
+     * @ORM\PrePersist()
+     */
+    public function setSlug() {
+        $this->slug = str_replace(' ', '-', $this->title);
     }
 }
