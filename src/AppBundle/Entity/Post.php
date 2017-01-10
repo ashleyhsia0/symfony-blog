@@ -140,4 +140,15 @@ class Post
     public function setSlug() {
         $this->slug = str_replace(' ', '-', $this->title);
     }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
 }

@@ -60,7 +60,7 @@ class PostController extends Controller
             $em->persist($post);
             $em->flush($post);
 
-            return $this->redirectToRoute('post_show', array('id' => $post->getId()));
+            return $this->redirectToRoute('post_show', array('slug' => $post->getSlug()));
         }
 
         return $this->render('post/new.html.twig', array(
@@ -72,11 +72,14 @@ class PostController extends Controller
     /**
      * Finds and displays a post entity.
      *
-     * @Route("/{id}", name="post_show")
+     * @Route("/{slug}", name="post_show")
      * @Method("GET")
      */
-    public function showAction(Post $post)
+    public function showAction($slug)
     {
+        $em = $this->getDoctrine()->getManager();
+        $post = $em->getRepository('AppBundle:Post')->findOneBy(array('slug' => $slug));
+
         $deleteForm = $this->createDeleteForm($post);
 
         return $this->render('post/show.html.twig', array(
